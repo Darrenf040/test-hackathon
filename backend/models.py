@@ -9,7 +9,6 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     age = db.Column(db.Integer, nullable=True)
-    isAdult = db.Column(db.Boolean, default=False)
     
     # Relationship: One user can have many products
     products = db.relationship('Product',backref="owner", lazy=True, cascade='all, delete-orphan')
@@ -22,7 +21,6 @@ class User(db.Model):
             'created_at': self.created_at.isoformat(),
             'products': [product.to_dict() for product in self.products],
             'age': self.age,
-            'isAdult': self.isAdult
         }
 
 
